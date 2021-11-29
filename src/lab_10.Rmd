@@ -1,0 +1,59 @@
+---
+title: "Lab 10"
+author: "Lucas Boyd"
+date: "11/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# attach packages
+library(beepr)
+library(praise)
+library(cowsay)
+library(sf)
+library(paletteer)
+```
+
+## beepr::beep()
+
+```{r}
+beep() # this shit beeps!!!!!
+beep(8) # biiiiiiiig fun
+```
+Use beep() to give an audio alert
+```{r, eval = FALSE} 
+# for loop + beep
+
+for (i in rev(seq(1:99))) {
+  print(paste(i, "bottles of beer on the wall"))}
+
+beep(4)
+```
+rev() function reverses the sequence seq()
+paste() paste things together to create a new string
+eval = FALSE so it is not evaluated when knitting
+
+## praise is nice 
+
+```{r}
+praise("${EXCLAMATION}!!! This code works ${adverb_manner}!")
+```
+
+## cowsay::say()
+
+```{r}
+say(what = "fuck it up", by = "hypnotoad", )
+```
+
+## usethis()
+
+```{r}
+
+```
+
+
+
+
+
+
