@@ -13,6 +13,9 @@ library(praise)
 library(cowsay)
 library(sf)
 library(paletteer)
+library(here)
+library(tidyverse)
+library(janitor)
 ```
 
 ## beepr::beep()
@@ -43,16 +46,52 @@ praise("${EXCLAMATION}!!! This code works ${adverb_manner}!")
 ## cowsay::say()
 
 ```{r}
-say(what = "fuck it up", by = "hypnotoad", )
+say(what = "go off", by = "hypnotoad", )
 ```
 
 ## usethis()
+usethis::edit_r_profile in the console to edit your r profile (this changes things across all projects)
+
+R project first, then GitHub and repo
+usethis::use git() - then click yes twice
+usethis::use github() - one more yes
+this will take you to github with a fresh new repo
+if you rename the branch, copy the code to clipboard and run it in the TERMINAL
+
+## paletteer: aggregated color palettes
+
+run > View(palettes_d_names) in the console to check them out
 
 ```{r}
-
+storms %>% 
+  group_by(name) %>% 
+  summarize(min_pressure = min(pressure, na.rm = TRUE)) %>% 
+  slice_min(n = 10, min_pressure) %>% # the lowest 10 min pressures
+  ggplot(aes(x = min_pressure, y = name)) +
+  geom_col(aes(fill = name)) +
+  scale_fill_paletteer_d("palettetown::vulpix") # _d for discrete and _c for continuous
 ```
 
+## Map of Jornada LTER Vegetation
 
+sf or simple features makes important info stick together
+```{r}
+jornada_veg <- read_sf(here("data", "doc.kml")) %>% 
+  select(Name) %>% 
+  clean_names()
+
+ggplot() + 
+  geom_sf(data = jornada_veg, aes(fill = name)) +
+  scale_fill_paletteer_d("palettetown::beedrill") +
+  theme_minimal()
+
+# update this map so that 
+# each vegetation type has a different fill color
+# update theme
+# customize the color palette
+
+ggsave(filename = "sick_graph.png", width = 8, height = 5)
+```
 
 
 
